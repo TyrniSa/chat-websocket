@@ -6,11 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/public/styles.css" />
     <link rel="icon" href="/public/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
     <script src="/utils/constants.js"></script>
-    <title>WebSChat</title>
+    <title>ChatSocket 📣</title>
   </head>
   <body>
-    <h2>WebSChat</h2>
+    <dialog id="usernameDialog" open>
+      <form method="dialog" id="usernameForm">
+        <h2>Username</h2>
+        <input type="text" name="username" id="username" />
+        <br />
+        <button id="confirmBtn" value="default">Let's go! 💬</button>
+      </form>
+    </dialog>
+    
+    <h1>ChatSocket 📣</h1>
     <p>
       Open the chat in two tabs for testing or send the address to your friend
       to chat with them!
@@ -30,9 +45,8 @@
 
       // This variable will hold the WebSocket client connection.
       let wsClient;
-      //TODO: nicer prompt?
-      //This constant will hold the username
-      const userName = prompt("Please enter your username:");
+      //This variable will hold the username
+      let userName;
 
       ////////////////////////////////////////////////
       //////////////// DOM SETUP /////////////////////
@@ -40,10 +54,10 @@
 
       const messageBox = document.querySelector("#messageBox");
       const messageForm = document.querySelector("#messageForm");
+      const usernameDialog = document.querySelector("#usernameDialog");
 
       messageForm.onsubmit = function (e) {
         e.preventDefault();
-
         const message = messageBox.value;
 
         showMessageSent(message);
@@ -131,7 +145,6 @@
       const messages = document.querySelector(".chat");
 
       // This function displays a message in the messages container node.
-      // className may either be 'mine' or 'yours' (see styles.css for the distinction)
       function showNewMessage(message, className) {
         // Create a text node element for the message
         const textNode = document.createElement("div");
@@ -157,7 +170,13 @@
       }
 
       // Start the WebSocket server
-      init();
+      usernameDialog.addEventListener("close", function () {
+        userName = document.getElementById("username").value;
+        if (userName === "") {
+          userName = "N/A";
+        }
+        init();
+      });
     </script>
   </body>
 </html>
