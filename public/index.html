@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/public/styles.css" />
     <link rel="icon" href="/public/favicon.ico" type="image/x-icon" />
-    <!-- You may choose to use the message constants defined in the file below -->
     <script src="/utils/constants.js"></script>
     <title>WebSChat</title>
   </head>
@@ -30,8 +29,9 @@
       ////////////////////////////////////////////////
 
       // This variable will hold the WebSocket client connection.
-      // Initialize in the init() function
       let wsClient;
+      //TODO: nicer prompt?
+      //This constant will hold the username
       const userName = prompt("Please enter your username:");
 
       ////////////////////////////////////////////////
